@@ -29,4 +29,4 @@ main.o: main.c
 
 # Clean up object files and executable
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	rm -f $(OBJECTS) $(TARGET) calculator.mod

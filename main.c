@@ -2,11 +2,11 @@
 #include <ncurses.h>
 
 // Remember to actully declare the fortran functions dumbass
-double add(double a, double b);
-double subtract(double a, double b);
-double multiply(double a, double b); // Added
-double divide(double a, double b);   // Added
-double squareroot(double a); // cant belive the fix was thgat shrimple
+double add(double x, double y);
+double subtract(double x, double y);
+double multiply(double x, double y); // Added
+double divide(double x, double y);   // Added
+double squareroot(double x);
 
 
 void initUI() {
@@ -36,7 +36,7 @@ int main() {
     initUI();
 
     int choice;
-    double a, b, result;
+    double x, y, result;
     while (1) {
         displayMenu();
         choice = getch() - '0';
@@ -44,38 +44,37 @@ int main() {
         if (choice >= 1 && choice <= 5) { // Adjust range based on the number of options
             if (choice >= 1 && choice <= 4) { // Prompt for two numbers for operations 1-4
                 printw("\nEnter two numbers: ");
-                scanw("%lf %lf", &a, &b);
+                scanw("%lf %lf", &x, &y);
             } else if (choice == 5) { // Prompt for one number for square root
                 printw("\nEnter a number: ");
-                scanw("%lf", &a);
+                scanw("%lf", &x);
             }
 
             switch (choice) {
                 case 1:
-                    printw("Enter number 1: ");
-                    result = add(a, b);
+                    result = add(x, y);
                     break;
                 case 2:
-                    result = subtract(a, b);
+                    result = subtract(x, y);
                     break;
                 case 3:
-                    result = multiply(a, b); 
+                    result = multiply(x, y); 
                     break;
                 case 4:
-                    result = divide(a, b);   
+                    result = divide(x, y);   
                     break;
                 case 5:
-                    result = squareroot(a);
+                    result = squareroot(x);
                     break;
                 // 
             }
 
             printw("Result: %lf\n", result);
-            break; // Exit the loop after a valid operation
+            break; // Exit the loop after x valid operation
         } else {
             printw("\nPick a valid option!\n");
             refresh();
-            napms(3000); // Wait for 1 second before redisplaying the menu
+            napms(2000); // Wait for 1 second before redisplaying the menu
         }
     }
 

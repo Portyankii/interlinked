@@ -4,34 +4,30 @@ module calculator
     contains
 
     ! math logic
-      real(c_double) function add(a, b) bind(C, name="add")
-        real(c_double), value :: a, b
-        add = a + b
+      real(c_double) function add(x, y) bind(C, name="add")
+        real(c_double), value :: x, y
+        add = x + y
       end function add
   
-      real(c_double) function subtract(a, b) bind(C, name="subtract")
-        real(c_double), value :: a, b
-        subtract = a - b
+      real(c_double) function subtract(x, y) bind(C, name="subtract")
+        real(c_double), value :: x, y
+        subtract = x - y
       end function subtract
   
-      real(c_double) function multiply(a, b) bind(C, name="multiply")
-        real(c_double), value :: a, b
-        multiply = a * b
+      real(c_double) function multiply(x, y) bind(C, name="multiply")
+        real(c_double), value :: x, y
+        multiply = x * y
       end function multiply
 
-      real(c_double)function divide(a, b) bind(C, name="divide")
-        real(c_double), value :: a, b
-        divide = a / b
+      real(c_double)function divide(x, y) bind(C, name="divide")
+        real(c_double), value :: x, y
+        divide = x / y
     end function divide
 ! why the hell will you not work >:(
-    real(c_double)function squareroot(a) bind(c, name="squareroot")
-        real(c_double), intent(in) :: a
-        if (a < 0.0) then
-          print *, "Error: Negative input"
-        else
-        squareroot = sqrt(a)
-        end if
-end function squareroot
+    real(c_double)function squareroot(x) bind(c, name="squareroot")
+        real(c_double), value :: x
+        squareroot = sqrt(x)
+    end function squareroot
          
         
         
