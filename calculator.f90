@@ -29,6 +29,7 @@ module calculator
       squareroot = sqrt(x)
   end function squareroot
 
+  ! possibly broken, 7x + 3x = 15 outputs 1.73 instead of 1.5
   real(c_double) function solve_linear(a, b, c, x_coefficient, y_coefficient) bind(C, name="solve_linear")
       real(c_double), value :: a, b, c, x_coefficient, y_coefficient
       if (x_coefficient /= 0.0_c_double) then

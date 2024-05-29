@@ -9,7 +9,7 @@ double subtract(double x, double y);
 double multiply(double x, double y);
 double divide(double x, double y);
 double squareroot(double x);
-double solve_linear(double a, double b, double c, double x_coeff, double y_coeff);
+double solve_linear(double a, double b, double c, double x_coefficient, double y_coefficient);
 
 void initUI() {
     initscr();
@@ -33,6 +33,7 @@ void displayMenu() {
     printw("Choose an option: ");
     refresh(); // Update the display
 }
+
 
 int parseEquation(const char* input, double* a, double* b, double* c) {
     // Simple parser for equations of the form "ax + by = c"
