@@ -30,38 +30,20 @@ void displayMenu() {
     printw("4. Divide\n");
     printw("5. Square Root\n");
     printw("6. Solve Linear Equation\n");
+    printw("7. Exit\n");
     printw("Choose an option: ");
     refresh(); // Update the display
 }
 
-
 int parseEquation(const char* input, double* a, double* b, double* c) {
-    // Simple parser for equations of the form "ax + by = c"
-    // This does not handle all edge cases and assumes a valid input format
-    char temp[100];
-    strcpy(temp, input);
-    char *token;
-    token = strtok(temp, " ");
-    int i = 0;
-    while (token != NULL) {
-        if (i == 0) {
-            *a = atof(token);
-        } else if (i == 1) {
-            if (strcmp(token, "x") == 0) {
-                *a *= 1.0;
-            } else if (strcmp(token, "y") == 0) {
-                *a = 0.0;
-                *b = atof(token);
-            }
-        } else if (i == 2) {
-            *b = atof(token);
-        } else if (i == 4) {
-            *c = atof(token);
-        }
-        token = strtok(NULL, " ");
-        i++;
+    // parser
+    if (sscanf(input, "%lfx + %lfy = %lf", a, b, c) == 3) {
+        return 0; // Successfully parsed
     }
-    return 0;
+    if (sscanf(input, "%lfx + %lfx = %lf", a, b, c) == 3) { // hopefully handels cases where A & B have the same variable
+        return 0;
+    }
+    return -1; // Error parsing
 }
 
 int main() {
@@ -90,16 +72,27 @@ int main() {
                 printw("\nEnter a number: ");
                 scanw("%lf", &x);
                 result = operations_un[0](x);
+
+                
             } else if (choice == 6) { // Prompt for linear equation
                 printw("\nEnter equation (ax + by = c): ");
                 getnstr(equation, 100);
-                parseEquation(equation, &a, &b, &c);
-                result = solve_linear(a, b, c, 1.0, 1.0);
+                if (parseEquation(equation, &a, &b, &c) == 0) {
+                    // Assuming x_coefficient = 1 and y_coefficient = 1 for simplicity
+                    result = solve_linear(a, b, c, 1.0, 1.0);
+                } else {
+                    printw("Error: Could not parse the equation.\n");
+                    refresh();
+                    getch();
+                    continue;
+                } 
             }
 
             printw("Result: %lf\n", result);
             refresh(); // Update the display with the result
             getch(); // Wait for user input before redisplaying the menu
+        } else if (choice == 7) {
+            break; // Exit the loop and end the program
         } else {
             printw("\nPick a valid option!\n");
             refresh();

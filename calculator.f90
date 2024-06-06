@@ -33,12 +33,16 @@ module calculator
   real(c_double) function solve_linear(a, b, c, x_coefficient, y_coefficient) bind(C, name="solve_linear")
       real(c_double), value :: a, b, c, x_coefficient, y_coefficient
       if (x_coefficient /= 0.0_c_double) then
-          solve_linear = (c - b * y_coefficient) / a
-      else if (y_coefficient /= 0.0_c_double) then
-          solve_linear = (c - a * x_coefficient) / b
-      else
-          solve_linear = huge(0.0_c_double)
-      end if
+      ! Solving for y: x_coefficient * x + y_coefficient * y = c
+      solve_linear = (c - x_coefficient * a) / y_coefficient
+    else if (y_coefficient /= 0.0_c_double) then
+      ! Solving for x: x_coefficient * x + y_coefficient * y = c
+      solve_linear = (c - y_coefficient * b) / x_coefficient
+    else
+      ! Both coefficients are zero, no unique solution
+      solve_linear = huge(0.0_c_double)
+    end if
+
   end function solve_linear
 
 end module calculator
